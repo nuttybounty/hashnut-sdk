@@ -24,10 +24,11 @@ public class ServiceTest {
     private final String accessKeyId="01J2ZYF2S7FJASDA4RF2VFF253";
     private final String secretKey ="AMxw44o3oeF6J4A4HxxBns66liAo9DJM";
     private final String receiptAddress="0x7a30e50ae5b1c0c098718bbb8196a009c8eb9583";
+    private final String splitterAddress="0x681fa0f31e374bd584aaea656809e2041a467abf";
 
     @Before
     public void before(){
-        hashnutClient = new HashNutClientImpl(secretKey, false);
+        hashnutClient = new HashNutClientImpl(secretKey, true);
         hashNutService = new HashNutServiceImpl(hashnutClient);
     }
 
@@ -62,7 +63,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void createOrder() throws HashNutException {
+    public void createPayOrder() throws HashNutException {
         final String merchantOrderId = UUID.randomUUID().toString();
         BigDecimal amount=new BigDecimal("1.13");
         System.out.println("start " + new Date());
@@ -73,6 +74,32 @@ public class ServiceTest {
                 .withCoinCode(coinCode)
                 .withAmount(amount)
                 .withReceiptAddress(receiptAddress)
+                .build());
+        System.out.println("end " + new Date());
+        HashNutOrder order=response.getData();
+
+        ObjectMapper objectMapper=new ObjectMapper();
+        ObjectNode objectNode=objectMapper.createObjectNode();
+        objectNode.put("payOrderId",order.getPayOrderId());
+        objectNode.put("merchantOrderId",order.getMerchantOrderId());
+        objectNode.put("accessSign",order.getAccessSign());
+        objectNode.put("receiptAddress",order.getReceiptAddress());
+
+        System.out.println(objectNode.toPrettyString());
+    }
+
+    @Test
+    public void createPassThroughPayOrder() throws HashNutException {
+        final String merchantOrderId = UUID.randomUUID().toString();
+        BigDecimal amount=new BigDecimal("1.13");
+        System.out.println("start " + new Date());
+        CreatePassThroughOrderResponse response = hashNutService.createPassThroughOrder(new CreatePassThroughOrderRequest.Builder()
+                .withAccessKeyId(accessKeyId)
+                .withMerchantOrderId(merchantOrderId)
+                .withChainCode(chainCode)
+                .withCoinCode(coinCode)
+                .withAmount(amount)
+                .withSplitterAddress(splitterAddress)
                 .build());
         System.out.println("end " + new Date());
         HashNutOrder order=response.getData();

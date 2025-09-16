@@ -10,6 +10,7 @@ public interface HashNutService {
     QueryCoinsResponse querySupportCoin(QuerySupportCoinRequest request) throws HashNutException;
     QueryOrderResponse queryOrder(QueryOrderRequest request) throws HashNutException;
     CreateOrderResponse createOrder(CreateOrderRequest request) throws HashNutException;
+    CreatePassThroughOrderResponse createPassThroughOrder(CreatePassThroughOrderRequest request) throws HashNutException;
     SingleResponse lockPayOrder(LockPayOrderRequest build) throws HashNutException;
     SingleResponse confirmPayOrder(ConfirmPayOrderRequest build) throws HashNutException;
 }

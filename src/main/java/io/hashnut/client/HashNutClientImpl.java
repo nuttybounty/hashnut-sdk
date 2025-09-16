@@ -19,7 +19,7 @@ public class HashNutClientImpl implements HashNutClient {
     /**
      * The sandbox environment
      */
-    private static final String SANDBOX_URL = "https://testnet-web3.hashnut.io/api/v2.0.0";
+    private static final String SANDBOX_URL = "https://testnet.hashnut.io/api/v2.0.0";
 
     private final Authentication authentication;
     private final String baseUrl;
