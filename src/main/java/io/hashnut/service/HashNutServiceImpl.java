@@ -80,12 +80,7 @@ public class HashNutServiceImpl implements HashNutService {
     }
 
     @Override
-    public CreateOrderResponse createOrder(CreateOrderRequest request) throws HashNutException {
-        return request(request);
-    }
-
-    @Override
-    public CreatePassThroughOrderResponse createPassThroughOrder(CreatePassThroughOrderRequest request) throws HashNutException {
+    public CreatePayOrderResponse createPayOrder(CreatePayOrderRequest request) throws HashNutException {
         return request(request);
     }
 

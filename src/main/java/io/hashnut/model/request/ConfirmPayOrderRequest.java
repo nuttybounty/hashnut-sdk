@@ -3,7 +3,6 @@ package io.hashnut.model.request;
 import io.hashnut.model.response.SingleResponse;
 
 public class ConfirmPayOrderRequest extends PostRequest<SingleResponse>{
-    private final String BASE_URL="/pay/confirmPayOrderPaid";
     private final String payOrderId;
     private final String merchantOrderId;
     private final String accessSign;

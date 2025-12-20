@@ -14,12 +14,12 @@ public class HashNutClientImpl implements HashNutClient {
     /**
      * The production environment
      */
-    private static final String PRODUCTION_URL = "https://hashnut.io/api/v2.0.0";
+    private static final String PRODUCTION_URL = "https://hashnut.io/api/v3.0.0";
 
     /**
      * The sandbox environment
      */
-    private static final String SANDBOX_URL = "https://testnet.hashnut.io/api/v2.0.0";
+    private static final String SANDBOX_URL = "https://testnet.hashnut.io/api/v3.0.0";
 
     private final Authentication authentication;
     private final String baseUrl;

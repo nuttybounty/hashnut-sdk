@@ -1,9 +1,9 @@
 package io.hashnut.model.request;
 
 import java.math.BigDecimal;
-import io.hashnut.model.response.CreatePassThroughOrderResponse;
+import io.hashnut.model.response.CreatePayOrderResponse;
 
-public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThroughOrderResponse> {
+public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
     private String accessKeyId;
     private String merchantOrderId;
     private String chainCode;
@@ -16,6 +16,8 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
     private String param2;
     private Boolean customCallBackUrl;
     private String extra;
+    private Long expireDuration;
+    private Integer payWebType;
 
     public String getAccessKeyId() {
         return accessKeyId;
@@ -65,7 +67,23 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
         return extra;
     }
 
-    protected CreatePassThroughOrderRequest(Builder builder) {
+    public Long getExpireDuration() {
+        return expireDuration;
+    }
+
+    public void setExpireDuration(Long expireDuration) {
+        this.expireDuration = expireDuration;
+    }
+
+    public Integer getPayWebType() {
+        return payWebType;
+    }
+
+    public void setPayWebType(Integer payWebType) {
+        this.payWebType = payWebType;
+    }
+
+    protected CreatePayOrderRequest(Builder builder) {
         this.accessKeyId = builder.accessKeyId;
         this.merchantOrderId = builder.merchantOrderId;
         this.chainCode = builder.chainCode;
@@ -78,6 +96,8 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
         this.param2 = builder.param2;
         this.customCallBackUrl = builder.customCallBackUrl;
         this.extra = builder.extra;
+        this.expireDuration=builder.expireDuration;
+        this.payWebType=builder.payWebType;
     }
 
     @Override
@@ -85,12 +105,12 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
 
     @Override
     public String getUri() {
-        return "/pay/createPassThroughPayOrderWithApiKey";
+        return "/pay/createPayOrderOnSplitWalletWithApiKey";
     }
 
     @Override
-    public Class<CreatePassThroughOrderResponse> getResponseClass() {
-        return CreatePassThroughOrderResponse.class;
+    public Class<CreatePayOrderResponse> getResponseClass() {
+        return CreatePayOrderResponse.class;
     }
 
     public static class Builder {
@@ -106,6 +126,8 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
         private String param2;
         private Boolean customCallBackUrl;
         private String extra;
+        private Long expireDuration;
+        private Integer payWebType;
         public Builder(){
 
         }
@@ -121,7 +143,9 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
                 String param1,
                 String param2,
                 Boolean customCallBackUrl,
-                String extra) {
+                String extra,
+                Long expireDuration,
+                Integer payWebType) {
             this.accessKeyId = accessKeyId;
             this.merchantOrderId = mchOrderNo;
             this.chainCode = chainCode;
@@ -134,6 +158,8 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
             this.param2 = param2;
             this.customCallBackUrl = customCallBackUrl;
             this.extra = extra;
+            this.expireDuration=expireDuration;
+            this.payWebType=payWebType;
         }
 
         public Builder withAccessKeyId(String accessKeyId) {
@@ -196,8 +222,18 @@ public class CreatePassThroughOrderRequest extends PostRequest<CreatePassThrough
             return this;
         }
 
-        public CreatePassThroughOrderRequest build() {
-            return new CreatePassThroughOrderRequest(this);
+        public Builder withExpireDuration(Long expireDuration){
+            this.expireDuration=expireDuration;
+            return this;
+        }
+
+        public Builder withIntegerWeb(Integer payWebType){
+            this.payWebType=payWebType;
+            return this;
+        }
+
+        public CreatePayOrderRequest build() {
+            return new CreatePayOrderRequest(this);
         }
     }
 }

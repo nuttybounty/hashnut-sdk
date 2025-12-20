@@ -19,12 +19,11 @@ public class ServiceTest {
     private HashNutClient hashnutClient;
     private HashNutService hashNutService;
     private final String chainCode="polygon-erc20";
-    private final String coinCode="usdt";
-    private final String merchantAddress="0xe1fd94f8874d698567e03f671a8c62e4e2e4be90";
-    private final String accessKeyId="01J2ZYF2S7FJASDA4RF2VFF253";
-    private final String secretKey ="AMxw44o3oeF6J4A4HxxBns66liAo9DJM";
-    private final String receiptAddress="0x7a30e50ae5b1c0c098718bbb8196a009c8eb9583";
-    private final String splitterAddress="0x681fa0f31e374bd584aaea656809e2041a467abf";
+    private final String coinCode="MockUSDT";
+    private final String merchantAddress="0x363C1E6160dd47Ae583D73Ff0087afcB52B9f082";
+    private final String accessKeyId="01KCXQBEP3E0YACMPD82MJ6F44";
+    private final String secretKey ="oW6WCdWyC1Vd4HPH3Y6GHr6rnw8GkiHA";
+    private final String splitterAddress="0x1782990c4da7e14029b7cfde987d574ce0d7f879";
 
     @Before
     public void before(){
@@ -65,41 +64,16 @@ public class ServiceTest {
     @Test
     public void createPayOrder() throws HashNutException {
         final String merchantOrderId = UUID.randomUUID().toString();
-        BigDecimal amount=new BigDecimal("1.13");
+        BigDecimal amount=new BigDecimal("0.03");
         System.out.println("start " + new Date());
-        CreateOrderResponse response = hashNutService.createOrder(new CreateOrderRequest.Builder()
-                .withAccessKeyId(accessKeyId)
-                .withMerchantOrderId(merchantOrderId)
-                .withChainCode(chainCode)
-                .withCoinCode(coinCode)
-                .withAmount(amount)
-                .withReceiptAddress(receiptAddress)
-                .build());
-        System.out.println("end " + new Date());
-        HashNutOrder order=response.getData();
-
-        ObjectMapper objectMapper=new ObjectMapper();
-        ObjectNode objectNode=objectMapper.createObjectNode();
-        objectNode.put("payOrderId",order.getPayOrderId());
-        objectNode.put("merchantOrderId",order.getMerchantOrderId());
-        objectNode.put("accessSign",order.getAccessSign());
-        objectNode.put("receiptAddress",order.getReceiptAddress());
-
-        System.out.println(objectNode.toPrettyString());
-    }
-
-    @Test
-    public void createPassThroughPayOrder() throws HashNutException {
-        final String merchantOrderId = UUID.randomUUID().toString();
-        BigDecimal amount=new BigDecimal("1.13");
-        System.out.println("start " + new Date());
-        CreatePassThroughOrderResponse response = hashNutService.createPassThroughOrder(new CreatePassThroughOrderRequest.Builder()
+        CreatePayOrderResponse response = hashNutService.createPayOrder(new CreatePayOrderRequest.Builder()
                 .withAccessKeyId(accessKeyId)
                 .withMerchantOrderId(merchantOrderId)
                 .withChainCode(chainCode)
                 .withCoinCode(coinCode)
                 .withAmount(amount)
                 .withSplitterAddress(splitterAddress)
+                .withExpireDuration(300L)
                 .build());
         System.out.println("end " + new Date());
         HashNutOrder order=response.getData();
@@ -110,7 +84,7 @@ public class ServiceTest {
         objectNode.put("merchantOrderId",order.getMerchantOrderId());
         objectNode.put("accessSign",order.getAccessSign());
         objectNode.put("receiptAddress",order.getReceiptAddress());
-
+        
         System.out.println(objectNode.toPrettyString());
     }
 
@@ -136,9 +110,9 @@ public class ServiceTest {
 
     @Test
     public void queryOrder() throws HashNutException {
-        final String payOrderId="01HRKFC3H3BVZZAEEB1KM06SG0";
-        final String mchOrderNo="3df2cd1d-5c2d-45a2-9ea7-fa47d6fec362";
-        final String accessSign="F85EAB044144878CCA4C2C874A0E72042435D3D199AB44387D4F2559F40D7B88";
+        final String payOrderId="01KCXRSGPH6W0WJZ9AKMBEVE5A";
+        final String mchOrderNo="8e267d36-5ad6-4514-b37d-da24f22a7b9e";
+        final String accessSign="3868249EB79ABC0C34A2D391B6CBA81E1551B5B5D13B354A790A3571F2C65EA9";
 
         QueryOrderResponse response=hashNutService.queryOrder(new QueryOrderRequest.Builder()
                 .withPayOrderId(payOrderId)
