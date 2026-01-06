@@ -8,6 +8,7 @@ public class HashNutOrder {
     private String chain;
     private String merchantAddress;
     private String merchantOrderId;
+    private String merchantChannel;
     private String chainCode;
     private String coinCode;
     private Integer createChannel;
@@ -72,6 +73,14 @@ public class HashNutOrder {
 
     public void setMerchantOrderId(String merchantOrderId) {
         this.merchantOrderId = merchantOrderId;
+    }
+
+    public String getMerchantChannel() {
+        return merchantChannel;
+    }
+
+    public void setMerchantChannel(String merchantChannel) {
+        this.merchantChannel = merchantChannel;
     }
 
     public String getChainCode() {

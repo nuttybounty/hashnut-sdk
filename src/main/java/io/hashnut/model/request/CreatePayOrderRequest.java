@@ -6,6 +6,7 @@ import io.hashnut.model.response.CreatePayOrderResponse;
 public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
     private String accessKeyId;
     private String merchantOrderId;
+    private String merchantChannel;
     private String chainCode;
     private String coinCode;
     private BigDecimal amount;
@@ -25,6 +26,10 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
 
     public String getMerchantOrderId() {
         return merchantOrderId;
+    }
+
+    public String getMerchantChannel() {
+        return merchantChannel;
     }
 
     public String getChainCode() {
@@ -86,6 +91,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
     protected CreatePayOrderRequest(Builder builder) {
         this.accessKeyId = builder.accessKeyId;
         this.merchantOrderId = builder.merchantOrderId;
+        this.merchantChannel= builder.merchantChannel;
         this.chainCode = builder.chainCode;
         this.coinCode = builder.coinCode;
         this.amount = builder.amount;
@@ -116,6 +122,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
     public static class Builder {
         private String accessKeyId;
         private String merchantOrderId;
+        private String merchantChannel;
         private String chainCode;
         private String coinCode;
         private BigDecimal amount;
@@ -133,7 +140,8 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         }
         public Builder(
                 String accessKeyId,
-                String mchOrderNo,
+                String merchantOrderId,
+                String merchantChannel,
                 String chainCode,
                 String coinCode,
                 BigDecimal amount,
@@ -147,7 +155,8 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
                 Long expireDuration,
                 Integer payWebType) {
             this.accessKeyId = accessKeyId;
-            this.merchantOrderId = mchOrderNo;
+            this.merchantOrderId = merchantOrderId;
+            this.merchantChannel = merchantChannel;
             this.chainCode = chainCode;
             this.coinCode = coinCode;
             this.amount = amount;
@@ -169,6 +178,11 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
 
         public Builder withMerchantOrderId(String merchantOrderId) {
             this.merchantOrderId = merchantOrderId;
+            return this;
+        }
+
+        public Builder withMerchantChannel(String merchantChannel) {
+            this.merchantChannel = merchantChannel;
             return this;
         }
 

@@ -18,12 +18,12 @@ public class ServiceTest {
 
     private HashNutClient hashnutClient;
     private HashNutService hashNutService;
-    private final String chainCode="polygon-erc20";
+    private final String chainCode="trc20";
     private final String coinCode="MockUSDT";
     private final String merchantAddress="0x363C1E6160dd47Ae583D73Ff0087afcB52B9f082";
-    private final String accessKeyId="01KCXQBEP3E0YACMPD82MJ6F44";
-    private final String secretKey ="oW6WCdWyC1Vd4HPH3Y6GHr6rnw8GkiHA";
-    private final String splitterAddress="0x1782990c4da7e14029b7cfde987d574ce0d7f879";
+    private final String accessKeyId="01KC3EQYY9NBNKZAKZ119R2Q4Y";
+    private final String secretKey ="DxDudAwDt33A6u6WBukQ4BwytC5u4xcR";
+    private final String splitterAddress="TERcF7B9WVMyS2hA6opViyVfq9YWJ4Y9QQ";
 
     @Before
     public void before(){
@@ -69,6 +69,7 @@ public class ServiceTest {
         CreatePayOrderResponse response = hashNutService.createPayOrder(new CreatePayOrderRequest.Builder()
                 .withAccessKeyId(accessKeyId)
                 .withMerchantOrderId(merchantOrderId)
+                .withMerchantChannel("gptbots")     // optional: default value: "default",if you want special you must configure in merchant web system
                 .withChainCode(chainCode)
                 .withCoinCode(coinCode)
                 .withAmount(amount)
