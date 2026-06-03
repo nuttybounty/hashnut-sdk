@@ -19,15 +19,15 @@ public class ServiceTest {
     private HashNutClient hashnutClient;
     private HashNutService hashNutService;
     private final String chainCode="trc20";
-    private final String coinCode="MockUSDT";
+    private final String coinCode="usdt";
     private final String merchantAddress="0x363C1E6160dd47Ae583D73Ff0087afcB52B9f082";
-    private final String accessKeyId="01KC3EQYY9NBNKZAKZ119R2Q4Y";
-    private final String secretKey ="DxDudAwDt33A6u6WBukQ4BwytC5u4xcR";
-    private final String splitterAddress="TERcF7B9WVMyS2hA6opViyVfq9YWJ4Y9QQ";
+    private final String accessKeyId="01KKCFPKAY1TBJE3BJN0D9ERRF";
+    private final String secretKey ="knZoxwkkKpbkNjJGwZGGEfZsRqAlsGqg";
+    private final String splitterAddress="TAsXR6bKbNNQuCfvustbQfQi1mQbj2a5EV";
 
     @Before
     public void before(){
-        hashnutClient = new HashNutClientImpl(secretKey, true);
+        hashnutClient = new HashNutClientImpl(secretKey, false);
         hashNutService = new HashNutServiceImpl(hashnutClient);
     }
 
@@ -69,12 +69,13 @@ public class ServiceTest {
         CreatePayOrderResponse response = hashNutService.createPayOrder(new CreatePayOrderRequest.Builder()
                 .withAccessKeyId(accessKeyId)
                 .withMerchantOrderId(merchantOrderId)
-                .withMerchantChannel("gptbots")     // optional: default value: "default",if you want special you must configure in merchant web system
+                .withMerchantChannel("default")     // optional: default value: "default",if you want special you must configure in merchant web system
                 .withChainCode(chainCode)
                 .withCoinCode(coinCode)
                 .withAmount(amount)
                 .withSplitterAddress(splitterAddress)
                 .withExpireDuration(300L)
+                .withCustomCallBackUrl("https://shency-test.qa.jpushoa.com/pay-result")
                 .build());
         System.out.println("end " + new Date());
         HashNutOrder order=response.getData();
@@ -91,11 +92,11 @@ public class ServiceTest {
 
     @Test
     public void confirmPayOrderPaid() throws HashNutException {
-        final String payOrderId="01HRKFC3H3BVZZAEEB1KM06SG0";
-        final String merchantOrderId="3df2cd1d-5c2d-45a2-9ea7-fa47d6fec362";
-        final String accessSign="F85EAB044144878CCA4C2C874A0E72042435D3D199AB44387D4F2559F40D7B88";
+        final String payOrderId="01KKCDTER7ET8Q2T2BPB6GD4SK";
+        final String merchantOrderId="2dfa6685-1b42-4aae-8846-70ab30bc5080";
+        final String accessSign="3B08148D3E3BD86F01818EFF4E35CA2DBFD6620F5C6CF7D6A44785CADAA9C0ED";
         final String payUUID = UUID.randomUUID().toString();
-        final String payTxId="0xd4b2368ba89ba2072a9ed01109b79628266b6ffc09fcc7468139d8d1bd9186e2";
+        final String payTxId="af7ba7264186407cc4dbcd8bbd27fd3b14d26cc9548c9e739ab1083590783d5e";
         SingleResponse response=hashNutService.confirmPayOrder(new ConfirmPayOrderRequest.Builder()
                 .withPayOrderId(payOrderId)
                 .withMerchantOrderId(merchantOrderId)

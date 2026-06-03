@@ -15,7 +15,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
     private String remark;
     private String param1;
     private String param2;
-    private Boolean customCallBackUrl;
+    private String customCallBackUrl;
     private String extra;
     private Long expireDuration;
     private Integer payWebType;
@@ -64,7 +64,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         return param2;
     }
 
-    public Boolean getCustomCallBackUrl() {
+    public String getCustomCallBackUrl() {
         return customCallBackUrl;
     }
 
@@ -131,7 +131,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         private String remark;
         private String param1;
         private String param2;
-        private Boolean customCallBackUrl;
+        private String customCallBackUrl;
         private String extra;
         private Long expireDuration;
         private Integer payWebType;
@@ -150,7 +150,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
                 String remark,
                 String param1,
                 String param2,
-                Boolean customCallBackUrl,
+                String customCallBackUrl,
                 String extra,
                 Long expireDuration,
                 Integer payWebType) {
@@ -226,7 +226,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
             return this;
         }
 
-        public Builder withCustomCallBackUrl(Boolean customCallBackUrl) {
+        public Builder withCustomCallBackUrl(String customCallBackUrl) {
             this.customCallBackUrl = customCallBackUrl;
             return this;
         }

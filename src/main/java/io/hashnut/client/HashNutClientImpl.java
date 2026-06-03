@@ -14,7 +14,7 @@ public class HashNutClientImpl implements HashNutClient {
     /**
      * The production environment
      */
-    private static final String PRODUCTION_URL = "https://hashnut.io/api/v3.0.0";
+    private static final String PRODUCTION_URL = "https://defi.hashnut.io/api/v3.0.0";
 
     /**
      * The sandbox environment
