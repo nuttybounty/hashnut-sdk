@@ -29,6 +29,8 @@ public class HashNutOrder {
     private Long payTxHeight;
     private String payAddress;
     private String receiptAddress;
+    private String payUrl;
+    private String customCallBackUrl;
     private String errorCode;
     private String errorMsg;
     private Long expireTime;
@@ -243,6 +245,22 @@ public class HashNutOrder {
         this.receiptAddress = receiptAddress;
     }
 
+    public String getPayUrl() {
+        return payUrl;
+    }
+
+    public void setPayUrl(String payUrl) {
+        this.payUrl = payUrl;
+    }
+
+    public String getCustomCallBackUrl() {
+        return customCallBackUrl;
+    }
+
+    public void setCustomCallBackUrl(String customCallBackUrl) {
+        this.customCallBackUrl = customCallBackUrl;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }
@@ -347,4 +365,3 @@ public class HashNutOrder {
         this.updateTime = updateTime;
     }
 }
-

@@ -7,11 +7,11 @@
     <groupId>io.hashnut</groupId>
     <artifactId>io-hashnut-web3-sdk</artifactId>
     <packaging>jar</packaging>
-    <version>3.1.0</version>
+    <version>4.0.0</version>
 
     <name>hashnut-java-sdk</name>
     <description>The Java SDK for integration with HashNut's API</description>
-    <url>https://testnet-web3.hashnut.io/docs/en/</url>
+    <url>https://testnet.hashnut.io/docs/en/</url>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -70,16 +70,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12</version>
                 <configuration>
-                    <systemProperties>
-                        <property>
-                            <name>loggerPath</name>
-                            <value>conf/log4j.properties</value>
-                        </property>
-                    </systemProperties>
                     <argLine>-Xms512m -Xmx1500m</argLine>
-                    <parallel>methods</parallel>
-                    <forkMode>pertest</forkMode>
-                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
             <plugin>

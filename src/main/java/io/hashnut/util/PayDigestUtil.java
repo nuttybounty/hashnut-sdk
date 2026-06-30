@@ -10,7 +10,7 @@ public class PayDigestUtil {
         Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
         SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
         sha256_HMAC.init(secret_key);
-        sha256_HMAC.update(data.getBytes());
+        sha256_HMAC.update(data.getBytes(StandardCharsets.UTF_8));
         byte[] array = sha256_HMAC.doFinal();
         return Base64.getEncoder().encodeToString(array);
     }

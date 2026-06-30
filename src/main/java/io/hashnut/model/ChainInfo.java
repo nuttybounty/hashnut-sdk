@@ -1,5 +1,7 @@
 package io.hashnut.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class ChainInfo {
@@ -14,9 +16,11 @@ public class ChainInfo {
     private Integer decimals;
     private String baseChainSymbol;
     private Integer env;
+    @JsonProperty("EIP712ChainId")
     private Long EIP712ChainId;
     private Long chainId;
     private String baseChainCoin;
+    @JsonProperty("EIP1559Support")
     private Boolean EIP1559Support;
     private Date createTime;
     private Date updateTime;
@@ -113,6 +117,7 @@ public class ChainInfo {
         return EIP712ChainId;
     }
 
+    @JsonProperty("EIP712ChainId")
     public void setEIP712ChainId(Long EIP712ChainId) {
         this.EIP712ChainId = EIP712ChainId;
     }
@@ -137,6 +142,7 @@ public class ChainInfo {
         return EIP1559Support;
     }
 
+    @JsonProperty("EIP1559Support")
     public void setEIP1559Support(Boolean EIP1559Support) {
         this.EIP1559Support = EIP1559Support;
     }
@@ -157,4 +163,3 @@ public class ChainInfo {
         this.updateTime = updateTime;
     }
 }
-

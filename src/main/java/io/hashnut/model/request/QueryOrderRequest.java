@@ -1,6 +1,5 @@
 package io.hashnut.model.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.hashnut.model.response.QueryOrderResponse;
 
 public class QueryOrderRequest extends PostRequest<QueryOrderResponse> {
@@ -27,11 +26,8 @@ public class QueryOrderRequest extends PostRequest<QueryOrderResponse> {
     }
 
     @Override
-    public boolean needSign(){return true;}
-
-    @Override
     public String getUri() {
-        return "/pay/queryPayOrderWithAccessSign";
+        return "/pay/orders/query";
     }
 
     @Override

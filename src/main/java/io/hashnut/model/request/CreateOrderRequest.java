@@ -1,24 +1,43 @@
 package io.hashnut.model.request;
 
-import java.math.BigDecimal;
-import io.hashnut.model.response.CreatePayOrderResponse;
+import io.hashnut.model.response.CreateOrderResponse;
 
-public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
-    private String accessKeyId;
-    private String merchantOrderId;
-    private String merchantChannel;
-    private String chainCode;
-    private String coinCode;
-    private BigDecimal amount;
-    private String splitterAddress;
-    private String subject;
-    private String remark;
-    private String param1;
-    private String param2;
-    private String customCallBackUrl;
-    private String extra;
-    private Long expireDuration;
-    private Integer payWebType;
+import java.math.BigDecimal;
+
+public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
+    private final String accessKeyId;
+    private final String merchantOrderId;
+    private final String merchantChannel;
+    private final String chainCode;
+    private final String coinCode;
+    private final String amount;
+    private final String splitterAddress;
+    private final String subject;
+    private final String remark;
+    private final String param1;
+    private final String param2;
+    private final String customCallBackUrl;
+    private final String extra;
+    private final Long expireDuration;
+    private final Integer payWebType;
+
+    private CreateOrderRequest(Builder builder) {
+        this.accessKeyId = builder.accessKeyId;
+        this.merchantOrderId = builder.merchantOrderId;
+        this.merchantChannel = builder.merchantChannel;
+        this.chainCode = builder.chainCode;
+        this.coinCode = builder.coinCode;
+        this.amount = builder.amount;
+        this.splitterAddress = builder.splitterAddress;
+        this.subject = builder.subject;
+        this.remark = builder.remark;
+        this.param1 = builder.param1;
+        this.param2 = builder.param2;
+        this.customCallBackUrl = builder.customCallBackUrl;
+        this.extra = builder.extra;
+        this.expireDuration = builder.expireDuration;
+        this.payWebType = builder.payWebType;
+    }
 
     public String getAccessKeyId() {
         return accessKeyId;
@@ -40,7 +59,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         return coinCode;
     }
 
-    public BigDecimal getAmount() {
+    public String getAmount() {
         return amount;
     }
 
@@ -76,47 +95,23 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         return expireDuration;
     }
 
-    public void setExpireDuration(Long expireDuration) {
-        this.expireDuration = expireDuration;
-    }
-
     public Integer getPayWebType() {
         return payWebType;
     }
 
-    public void setPayWebType(Integer payWebType) {
-        this.payWebType = payWebType;
-    }
-
-    protected CreatePayOrderRequest(Builder builder) {
-        this.accessKeyId = builder.accessKeyId;
-        this.merchantOrderId = builder.merchantOrderId;
-        this.merchantChannel= builder.merchantChannel;
-        this.chainCode = builder.chainCode;
-        this.coinCode = builder.coinCode;
-        this.amount = builder.amount;
-        this.splitterAddress = builder.splitterAddress;
-        this.subject = builder.subject;
-        this.remark = builder.remark;
-        this.param1 = builder.param1;
-        this.param2 = builder.param2;
-        this.customCallBackUrl = builder.customCallBackUrl;
-        this.extra = builder.extra;
-        this.expireDuration=builder.expireDuration;
-        this.payWebType=builder.payWebType;
-    }
-
     @Override
-    public boolean needSign(){return true;}
+    public boolean needSign() {
+        return true;
+    }
 
     @Override
     public String getUri() {
-        return "/pay/createPayOrderOnSplitWalletWithApiKey";
+        return "/pay/orders/api";
     }
 
     @Override
-    public Class<CreatePayOrderResponse> getResponseClass() {
-        return CreatePayOrderResponse.class;
+    public Class<CreateOrderResponse> getResponseClass() {
+        return CreateOrderResponse.class;
     }
 
     public static class Builder {
@@ -125,7 +120,7 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         private String merchantChannel;
         private String chainCode;
         private String coinCode;
-        private BigDecimal amount;
+        private String amount;
         private String splitterAddress;
         private String subject;
         private String remark;
@@ -135,41 +130,6 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
         private String extra;
         private Long expireDuration;
         private Integer payWebType;
-        public Builder(){
-
-        }
-        public Builder(
-                String accessKeyId,
-                String merchantOrderId,
-                String merchantChannel,
-                String chainCode,
-                String coinCode,
-                BigDecimal amount,
-                String receiptAddress,
-                String subject,
-                String remark,
-                String param1,
-                String param2,
-                String customCallBackUrl,
-                String extra,
-                Long expireDuration,
-                Integer payWebType) {
-            this.accessKeyId = accessKeyId;
-            this.merchantOrderId = merchantOrderId;
-            this.merchantChannel = merchantChannel;
-            this.chainCode = chainCode;
-            this.coinCode = coinCode;
-            this.amount = amount;
-            this.splitterAddress = receiptAddress;
-            this.subject = subject;
-            this.remark = remark;
-            this.param1 = param1;
-            this.param2 = param2;
-            this.customCallBackUrl = customCallBackUrl;
-            this.extra = extra;
-            this.expireDuration=expireDuration;
-            this.payWebType=payWebType;
-        }
 
         public Builder withAccessKeyId(String accessKeyId) {
             this.accessKeyId = accessKeyId;
@@ -196,8 +156,13 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
             return this;
         }
 
-        public Builder withAmount(BigDecimal amount) {
+        public Builder withAmount(String amount) {
             this.amount = amount;
+            return this;
+        }
+
+        public Builder withAmount(BigDecimal amount) {
+            this.amount = amount == null ? null : amount.toPlainString();
             return this;
         }
 
@@ -231,23 +196,28 @@ public class CreatePayOrderRequest extends PostRequest<CreatePayOrderResponse> {
             return this;
         }
 
+        public Builder withCallbackUrl(String callbackUrl) {
+            this.customCallBackUrl = callbackUrl;
+            return this;
+        }
+
         public Builder withExtra(String extra) {
             this.extra = extra;
             return this;
         }
 
-        public Builder withExpireDuration(Long expireDuration){
-            this.expireDuration=expireDuration;
+        public Builder withExpireDuration(Long expireDuration) {
+            this.expireDuration = expireDuration;
             return this;
         }
 
-        public Builder withIntegerWeb(Integer payWebType){
-            this.payWebType=payWebType;
+        public Builder withPayWebType(Integer payWebType) {
+            this.payWebType = payWebType;
             return this;
         }
 
-        public CreatePayOrderRequest build() {
-            return new CreatePayOrderRequest(this);
+        public CreateOrderRequest build() {
+            return new CreateOrderRequest(this);
         }
     }
 }

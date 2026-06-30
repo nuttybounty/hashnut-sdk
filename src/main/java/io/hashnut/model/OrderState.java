@@ -11,6 +11,7 @@ public class OrderState {
     public static final int FINISH=4;
     public static final int FAILED=-1;
     public static final int EXPIRE=-2;
+    public static final int CANCELED=-3;
 
     public static final String toString(int state){
         switch (state){
@@ -28,6 +29,8 @@ public class OrderState {
                 return "failed";
             case EXPIRE:
                 return "expire";
+            case CANCELED:
+                return "canceled";
             default:
                 return "unknown";
         }

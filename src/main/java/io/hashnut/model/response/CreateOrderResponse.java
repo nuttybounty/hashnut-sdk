@@ -2,7 +2,7 @@ package io.hashnut.model.response;
 
 import io.hashnut.model.HashNutOrder;
 
-public class QueryOrderResponse extends SingleResponse {
+public class CreateOrderResponse extends SingleResponse {
     private HashNutOrder data;
 
     public HashNutOrder getData() {

@@ -1,6 +1,7 @@
 package io.hashnut.model;
 
-import java.math.BigInteger;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
 public class CoinInfo {
@@ -8,12 +9,14 @@ public class CoinInfo {
     private String chain;
     private String chainCode;
     private String coinCode;
+    @JsonProperty("isToken")
     private Boolean isToken;
     private Boolean enable;
     private String contractAddress;
     private String coinDesc;
     private Boolean gateWayEnable;
     private Long decimals;
+    @JsonProperty("NFTMarket")
     private String NFTMarket;
     private Date createTime;
     private Date updateTime;
@@ -54,6 +57,7 @@ public class CoinInfo {
         return isToken;
     }
 
+    @JsonProperty("isToken")
     public void setToken(Boolean token) {
         isToken = token;
     }
@@ -102,6 +106,7 @@ public class CoinInfo {
         return NFTMarket;
     }
 
+    @JsonProperty("NFTMarket")
     public void setNFTMarket(String NFTMarket) {
         this.NFTMarket = NFTMarket;
     }

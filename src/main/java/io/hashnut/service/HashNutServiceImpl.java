@@ -1,76 +1,84 @@
 package io.hashnut.service;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import io.hashnut.client.HashNutClient;
 import io.hashnut.client.HashNutClientResponse;
 import io.hashnut.exception.HashNutException;
-import io.hashnut.model.request.*;
-import io.hashnut.model.response.*;
-
-import java.io.IOException;
-
+import io.hashnut.model.request.CancelOrderRequest;
+import io.hashnut.model.request.ConfirmPaidRequest;
+import io.hashnut.model.request.CreateOrderRequest;
+import io.hashnut.model.request.QueryChainsRequest;
+import io.hashnut.model.request.QueryCoinsRequest;
+import io.hashnut.model.request.QueryOrderRequest;
+import io.hashnut.model.request.Request;
+import io.hashnut.model.response.CreateOrderResponse;
+import io.hashnut.model.response.QueryChainsResponse;
+import io.hashnut.model.response.QueryCoinsResponse;
+import io.hashnut.model.response.QueryOrderResponse;
+import io.hashnut.model.response.SingleResponse;
 
 public class HashNutServiceImpl implements HashNutService {
 
     private final HashNutClient hashnutClient;
     private final ObjectMapper objectMapper;
+
     public HashNutServiceImpl(HashNutClient hashnutClient) {
+        this(hashnutClient, defaultObjectMapper());
+    }
+
+    public HashNutServiceImpl(HashNutClient hashnutClient, ObjectMapper objectMapper) {
         this.hashnutClient = hashnutClient;
-        this.objectMapper=new ObjectMapper();
-        objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
-            @Override
-            public void serialize(Object paramT, JsonGenerator paramJsonGenerator,
-                                  SerializerProvider paramSerializerProvider) throws IOException {
-                paramJsonGenerator.writeString("");
-            }
-        });
-        objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        this.objectMapper = objectMapper;
     }
 
     public <T> T request(Request<T> request) throws HashNutException {
         try {
             String payload = request.getPayload(objectMapper);
-            String uri = request.getUri();
-            HashNutClientResponse response = hashnutClient.request(uri,payload,request.needSign());
-            if (response.isSuccessful()) {
-                return buildResponse(request.getResponseClass(), response.getBody());
-            } else {
+            HashNutClientResponse response = hashnutClient.request(request.getUri(), payload, request.needSign());
+            if (!response.isSuccessful()) {
                 throw new HashNutException("server handle request error :" + response.getCode() + ": " + response.getBody());
             }
-        } catch(Exception e) {
-            throw new HashNutException(e.getMessage());
-        }
-    }
-
-    private static <T> T buildResponse(Class<T> responseClass, String response) throws HashNutException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        try {
-            // To ensure this can be converted from JSON properly we need to strip out the data and meta nodes
-            JsonNode root = mapper.readTree(response);
-            int code=root.findValue("code").asInt();
-            String msg=root.findValue("msg").asText();
-            if(code!=0)
-                throw new HashNutException("server return error response: " + msg);
-            return mapper.convertValue(root,responseClass);
+            return buildResponse(request.getResponseClass(), response.getBody());
+        } catch (HashNutException e) {
+            throw e;
         } catch (Exception e) {
             throw new HashNutException(e.getMessage());
         }
     }
 
-    @Override
-    public QueryCoinsResponse queryAllCoinInfo(QueryCoinsRequest request) throws HashNutException {
-        return request(request);
+    private static <T> T buildResponse(Class<T> responseClass, String response) throws HashNutException {
+        ObjectMapper mapper = defaultObjectMapper();
+        try {
+            JsonNode root = mapper.readTree(response);
+            JsonNode codeNode = root.findValue("code");
+            int code = codeNode == null ? 0 : codeNode.asInt();
+            JsonNode msgNode = root.findValue("msg");
+            String msg = msgNode == null ? "" : msgNode.asText();
+            if (code != 0) {
+                throw new HashNutException("server return error response: " + msg);
+            }
+            return mapper.convertValue(root, responseClass);
+        } catch (HashNutException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new HashNutException(e.getMessage());
+        }
+    }
+
+    private static ObjectMapper defaultObjectMapper() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        return mapper;
     }
 
     @Override
-    public QueryChainsResponse queryAllChainInfo(QueryChainsRequest request) throws HashNutException {
-        return request(request);
-    }
-
-    @Override
-    public QueryCoinsResponse querySupportCoin(QuerySupportCoinRequest request) throws HashNutException {
+    public CreateOrderResponse createOrder(CreateOrderRequest request) throws HashNutException {
         return request(request);
     }
 
@@ -80,17 +88,22 @@ public class HashNutServiceImpl implements HashNutService {
     }
 
     @Override
-    public CreatePayOrderResponse createPayOrder(CreatePayOrderRequest request) throws HashNutException {
+    public SingleResponse confirmPaid(ConfirmPaidRequest request) throws HashNutException {
         return request(request);
     }
 
     @Override
-    public SingleResponse lockPayOrder(LockPayOrderRequest request) throws HashNutException{
+    public SingleResponse cancelOrder(CancelOrderRequest request) throws HashNutException {
         return request(request);
     }
 
     @Override
-    public SingleResponse confirmPayOrder(ConfirmPayOrderRequest request) throws HashNutException {
+    public QueryChainsResponse queryAllChainInfo(QueryChainsRequest request) throws HashNutException {
+        return request(request);
+    }
+
+    @Override
+    public QueryCoinsResponse queryAllCoinInfo(QueryCoinsRequest request) throws HashNutException {
         return request(request);
     }
 }

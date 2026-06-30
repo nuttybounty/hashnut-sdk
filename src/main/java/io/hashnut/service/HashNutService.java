@@ -1,15 +1,23 @@
 package io.hashnut.service;
 
 import io.hashnut.exception.HashNutException;
-import io.hashnut.model.request.*;
-import io.hashnut.model.response.*;
+import io.hashnut.model.request.CancelOrderRequest;
+import io.hashnut.model.request.ConfirmPaidRequest;
+import io.hashnut.model.request.CreateOrderRequest;
+import io.hashnut.model.request.QueryChainsRequest;
+import io.hashnut.model.request.QueryCoinsRequest;
+import io.hashnut.model.request.QueryOrderRequest;
+import io.hashnut.model.response.CreateOrderResponse;
+import io.hashnut.model.response.QueryChainsResponse;
+import io.hashnut.model.response.QueryCoinsResponse;
+import io.hashnut.model.response.QueryOrderResponse;
+import io.hashnut.model.response.SingleResponse;
 
 public interface HashNutService {
-    QueryCoinsResponse queryAllCoinInfo(QueryCoinsRequest request) throws HashNutException;
-    QueryChainsResponse queryAllChainInfo(QueryChainsRequest request) throws HashNutException;
-    QueryCoinsResponse querySupportCoin(QuerySupportCoinRequest request) throws HashNutException;
+    CreateOrderResponse createOrder(CreateOrderRequest request) throws HashNutException;
     QueryOrderResponse queryOrder(QueryOrderRequest request) throws HashNutException;
-    CreatePayOrderResponse createPayOrder(CreatePayOrderRequest request) throws HashNutException;
-    SingleResponse lockPayOrder(LockPayOrderRequest build) throws HashNutException;
-    SingleResponse confirmPayOrder(ConfirmPayOrderRequest build) throws HashNutException;
+    SingleResponse confirmPaid(ConfirmPaidRequest request) throws HashNutException;
+    SingleResponse cancelOrder(CancelOrderRequest request) throws HashNutException;
+    QueryChainsResponse queryAllChainInfo(QueryChainsRequest request) throws HashNutException;
+    QueryCoinsResponse queryAllCoinInfo(QueryCoinsRequest request) throws HashNutException;
 }
