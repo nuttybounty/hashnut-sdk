@@ -13,11 +13,13 @@ import io.hashnut.model.request.ConfirmPaidRequest;
 import io.hashnut.model.request.CreateOrderRequest;
 import io.hashnut.model.request.QueryChainsRequest;
 import io.hashnut.model.request.QueryCoinsRequest;
+import io.hashnut.model.request.QueryFiatsRequest;
 import io.hashnut.model.request.QueryOrderRequest;
 import io.hashnut.model.request.Request;
 import io.hashnut.model.response.CreateOrderResponse;
 import io.hashnut.model.response.QueryChainsResponse;
 import io.hashnut.model.response.QueryCoinsResponse;
+import io.hashnut.model.response.QueryFiatsResponse;
 import io.hashnut.model.response.QueryOrderResponse;
 import io.hashnut.model.response.SingleResponse;
 
@@ -104,6 +106,11 @@ public class HashNutServiceImpl implements HashNutService {
 
     @Override
     public QueryCoinsResponse queryAllCoinInfo(QueryCoinsRequest request) throws HashNutException {
+        return request(request);
+    }
+
+    @Override
+    public QueryFiatsResponse queryAllFiatInfo(QueryFiatsRequest request) throws HashNutException {
         return request(request);
     }
 }

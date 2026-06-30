@@ -104,7 +104,7 @@ public class ServiceTest {
         HashNutService chainsService = new HashNutServiceImpl(chainsClient);
         QueryChainsResponse chainsResponse = chainsService.queryAllChainInfo(new QueryChainsRequest.Builder().build());
 
-        assertThat(chainsClient.uri).isEqualTo("/config/queryAllChainInfo");
+        assertThat(chainsClient.uri).isEqualTo("/config/chains");
         assertThat(chainsClient.needSign).isFalse();
         assertThat(chainsResponse.getData()).hasSize(1);
 
@@ -112,7 +112,7 @@ public class ServiceTest {
         HashNutService coinsService = new HashNutServiceImpl(coinsClient);
         QueryCoinsResponse coinsResponse = coinsService.queryAllCoinInfo(new QueryCoinsRequest.Builder().build());
 
-        assertThat(coinsClient.uri).isEqualTo("/config/queryAllCoinInfo");
+        assertThat(coinsClient.uri).isEqualTo("/config/coins");
         assertThat(coinsClient.needSign).isFalse();
         assertThat(coinsResponse.getData()).hasSize(1);
         assertThat(coinsResponse.getData().get(0).getToken()).isTrue();
