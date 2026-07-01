@@ -5,12 +5,11 @@ import java.util.Date;
 
 public class HashNutOrder {
     private String payOrderId;
-    private String chain;
+    private String blockChain;
     private String merchantAddress;
     private String merchantOrderId;
     private String merchantChannel;
-    private String chainCode;
-    private String coinCode;
+    private String tokenSymbol;
     private Integer createChannel;
     private String payTxId;
     private Integer rate;
@@ -30,7 +29,7 @@ public class HashNutOrder {
     private String payAddress;
     private String receiptAddress;
     private String payUrl;
-    private String customCallBackUrl;
+    private String callbackUrl;
     private String errorCode;
     private String errorMsg;
     private Long expireTime;
@@ -53,12 +52,12 @@ public class HashNutOrder {
         this.payOrderId = payOrderId;
     }
 
-    public String getChain() {
-        return chain;
+    public String getBlockChain() {
+        return blockChain;
     }
 
-    public void setChain(String chain) {
-        this.chain = chain;
+    public void setBlockChain(String blockChain) {
+        this.blockChain = blockChain;
     }
 
     public String getMerchantAddress() {
@@ -85,20 +84,12 @@ public class HashNutOrder {
         this.merchantChannel = merchantChannel;
     }
 
-    public String getChainCode() {
-        return chainCode;
+    public String getTokenSymbol() {
+        return tokenSymbol;
     }
 
-    public void setChainCode(String chainCode) {
-        this.chainCode = chainCode;
-    }
-
-    public String getCoinCode() {
-        return coinCode;
-    }
-
-    public void setCoinCode(String coinCode) {
-        this.coinCode = coinCode;
+    public void setTokenSymbol(String tokenSymbol) {
+        this.tokenSymbol = tokenSymbol;
     }
 
     public Integer getCreateChannel() {
@@ -253,12 +244,12 @@ public class HashNutOrder {
         this.payUrl = payUrl;
     }
 
-    public String getCustomCallBackUrl() {
-        return customCallBackUrl;
+    public String getCallbackUrl() {
+        return callbackUrl;
     }
 
-    public void setCustomCallBackUrl(String customCallBackUrl) {
-        this.customCallBackUrl = customCallBackUrl;
+    public void setCallbackUrl(String callbackUrl) {
+        this.callbackUrl = callbackUrl;
     }
 
     public String getErrorCode() {

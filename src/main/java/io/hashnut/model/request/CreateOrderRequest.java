@@ -8,15 +8,15 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
     private final String accessKeyId;
     private final String merchantOrderId;
     private final String merchantChannel;
-    private final String chainCode;
-    private final String coinCode;
+    private final String blockChain;
+    private final String tokenSymbol;
     private final String amount;
     private final String splitterAddress;
     private final String subject;
     private final String remark;
     private final String param1;
     private final String param2;
-    private final String customCallBackUrl;
+    private final String callbackUrl;
     private final String extra;
     private final Long expireDuration;
     private final Integer payWebType;
@@ -25,15 +25,15 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
         this.accessKeyId = builder.accessKeyId;
         this.merchantOrderId = builder.merchantOrderId;
         this.merchantChannel = builder.merchantChannel;
-        this.chainCode = builder.chainCode;
-        this.coinCode = builder.coinCode;
+        this.blockChain = builder.blockChain;
+        this.tokenSymbol = builder.tokenSymbol;
         this.amount = builder.amount;
         this.splitterAddress = builder.splitterAddress;
         this.subject = builder.subject;
         this.remark = builder.remark;
         this.param1 = builder.param1;
         this.param2 = builder.param2;
-        this.customCallBackUrl = builder.customCallBackUrl;
+        this.callbackUrl = builder.callbackUrl;
         this.extra = builder.extra;
         this.expireDuration = builder.expireDuration;
         this.payWebType = builder.payWebType;
@@ -51,12 +51,12 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
         return merchantChannel;
     }
 
-    public String getChainCode() {
-        return chainCode;
+    public String getBlockChain() {
+        return blockChain;
     }
 
-    public String getCoinCode() {
-        return coinCode;
+    public String getTokenSymbol() {
+        return tokenSymbol;
     }
 
     public String getAmount() {
@@ -83,8 +83,8 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
         return param2;
     }
 
-    public String getCustomCallBackUrl() {
-        return customCallBackUrl;
+    public String getCallbackUrl() {
+        return callbackUrl;
     }
 
     public String getExtra() {
@@ -106,7 +106,7 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
 
     @Override
     public String getUri() {
-        return "/pay/orders/api";
+        return "/api/orders/create";
     }
 
     @Override
@@ -118,15 +118,15 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
         private String accessKeyId;
         private String merchantOrderId;
         private String merchantChannel;
-        private String chainCode;
-        private String coinCode;
+        private String blockChain;
+        private String tokenSymbol;
         private String amount;
         private String splitterAddress;
         private String subject;
         private String remark;
         private String param1;
         private String param2;
-        private String customCallBackUrl;
+        private String callbackUrl;
         private String extra;
         private Long expireDuration;
         private Integer payWebType;
@@ -146,13 +146,13 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
             return this;
         }
 
-        public Builder withChainCode(String chainCode) {
-            this.chainCode = chainCode;
+        public Builder withBlockChain(String blockChain) {
+            this.blockChain = blockChain;
             return this;
         }
 
-        public Builder withCoinCode(String coinCode) {
-            this.coinCode = coinCode;
+        public Builder withTokenSymbol(String tokenSymbol) {
+            this.tokenSymbol = tokenSymbol;
             return this;
         }
 
@@ -191,13 +191,8 @@ public class CreateOrderRequest extends PostRequest<CreateOrderResponse> {
             return this;
         }
 
-        public Builder withCustomCallBackUrl(String customCallBackUrl) {
-            this.customCallBackUrl = customCallBackUrl;
-            return this;
-        }
-
         public Builder withCallbackUrl(String callbackUrl) {
-            this.customCallBackUrl = callbackUrl;
+            this.callbackUrl = callbackUrl;
             return this;
         }
 

@@ -28,30 +28,30 @@ public class ServiceTest {
 
     @Test
     public void createOrderUsesV4SignedEndpointAndPayload() throws Exception {
-        StubClient client = new StubClient("{\"code\":0,\"msg\":\"success\",\"data\":{\"payOrderId\":\"P001\",\"merchantOrderId\":\"M001\",\"amount\":\"10.00\",\"receiptAddress\":\"T123\",\"accessSign\":\"A001\",\"customCallBackUrl\":\"https://example.com/callback\"}}");
+        StubClient client = new StubClient("{\"code\":0,\"msg\":\"success\",\"data\":{\"payOrderId\":\"P001\",\"merchantOrderId\":\"M001\",\"amount\":\"10.00\",\"receiptAddress\":\"T123\",\"accessSign\":\"A001\",\"callbackUrl\":\"https://example.com/callback\"}}");
         HashNutService service = new HashNutServiceImpl(client);
 
         CreateOrderResponse response = service.createOrder(new CreateOrderRequest.Builder()
                 .withAccessKeyId("AK001")
                 .withMerchantOrderId("M001")
                 .withMerchantChannel("default")
-                .withChainCode("trc20")
-                .withCoinCode("usdt")
+                .withBlockChain("TRON")
+                .withTokenSymbol("usdt")
                 .withAmount(new BigDecimal("10.00"))
                 .withSplitterAddress("T_SPLITTER")
                 .withCallbackUrl("https://example.com/callback")
                 .withExpireDuration(600L)
                 .build());
 
-        assertThat(client.uri).isEqualTo("/pay/orders/api");
+        assertThat(client.uri).isEqualTo("/api/orders/create");
         assertThat(client.needSign).isTrue();
         JsonNode payload = new ObjectMapper().readTree(client.body);
         assertThat(payload.get("amount").asText()).isEqualTo("10.00");
         assertThat(payload.get("splitterAddress").asText()).isEqualTo("T_SPLITTER");
-        assertThat(payload.get("customCallBackUrl").asText()).isEqualTo("https://example.com/callback");
+        assertThat(payload.get("callbackUrl").asText()).isEqualTo("https://example.com/callback");
         assertThat(payload.has("payWebType")).isFalse();
         assertThat(response.getData().getPayOrderId()).isEqualTo("P001");
-        assertThat(response.getData().getCustomCallBackUrl()).isEqualTo("https://example.com/callback");
+        assertThat(response.getData().getCallbackUrl()).isEqualTo("https://example.com/callback");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ServiceTest {
                 .withAccessSign("ACCESS_SIGN")
                 .build());
 
-        assertThat(queryClient.uri).isEqualTo("/pay/orders/query");
+        assertThat(queryClient.uri).isEqualTo("/api/orders/query");
         assertThat(queryClient.needSign).isFalse();
         assertThat(queryResponse.getData().getState()).isEqualTo(OrderState.SUCCESS);
 
@@ -76,7 +76,6 @@ public class ServiceTest {
                 .withMerchantOrderId("M001")
                 .withAccessSign("ACCESS_SIGN")
                 .withPayTxId("TX001")
-                .withChainCode("trc20")
                 .build());
 
         assertThat(confirmClient.uri).isEqualTo("/pay/orders/confirm");
@@ -93,14 +92,14 @@ public class ServiceTest {
                 .withPayOrderId("P001")
                 .build());
 
-        assertThat(client.uri).isEqualTo("/pay/orders/cancel/api");
+        assertThat(client.uri).isEqualTo("/api/orders/cancel");
         assertThat(client.needSign).isTrue();
         assertThat(response.getCode()).isZero();
     }
 
     @Test
     public void configQueriesUseV4Endpoints() throws HashNutException {
-        StubClient chainsClient = new StubClient("{\"code\":0,\"msg\":\"success\",\"data\":[{\"chain\":\"TRON\",\"chainCode\":\"trc20\",\"EIP1559Support\":false}]}");
+        StubClient chainsClient = new StubClient("{\"code\":0,\"msg\":\"success\",\"data\":[{\"chain\":\"TRON\",\"EIP1559Support\":false}]}");
         HashNutService chainsService = new HashNutServiceImpl(chainsClient);
         QueryChainsResponse chainsResponse = chainsService.queryAllChainInfo(new QueryChainsRequest.Builder().build());
 
@@ -108,7 +107,7 @@ public class ServiceTest {
         assertThat(chainsClient.needSign).isFalse();
         assertThat(chainsResponse.getData()).hasSize(1);
 
-        StubClient coinsClient = new StubClient("{\"code\":0,\"msg\":\"success\",\"data\":[{\"chain\":\"TRON\",\"chainCode\":\"trc20\",\"coinCode\":\"usdt\",\"isToken\":true}]}");
+        StubClient coinsClient = new StubClient("{\"code\":0,\"msg\":\"success\",\"data\":[{\"blockChain\":\"TRON\",\"tokenSymbol\":\"usdt\",\"isToken\":true}]}");
         HashNutService coinsService = new HashNutServiceImpl(coinsClient);
         QueryCoinsResponse coinsResponse = coinsService.queryAllCoinInfo(new QueryCoinsRequest.Builder().build());
 

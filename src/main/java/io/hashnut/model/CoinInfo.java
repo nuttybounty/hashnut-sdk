@@ -6,9 +6,8 @@ import java.util.Date;
 
 public class CoinInfo {
     private Integer id;
-    private String chain;
-    private String chainCode;
-    private String coinCode;
+    private String blockChain;
+    private String tokenSymbol;
     @JsonProperty("isToken")
     private Boolean isToken;
     private Boolean enable;
@@ -29,28 +28,20 @@ public class CoinInfo {
         this.id = id;
     }
 
-    public String getChain() {
-        return chain;
+    public String getBlockChain() {
+        return blockChain;
     }
 
-    public void setChain(String chain) {
-        this.chain = chain;
+    public void setBlockChain(String blockChain) {
+        this.blockChain = blockChain;
     }
 
-    public String getChainCode() {
-        return chainCode;
+    public String getTokenSymbol() {
+        return tokenSymbol;
     }
 
-    public void setChainCode(String chainCode) {
-        this.chainCode = chainCode;
-    }
-
-    public String getCoinCode() {
-        return coinCode;
-    }
-
-    public void setCoinCode(String coinCode) {
-        this.coinCode = coinCode;
+    public void setTokenSymbol(String tokenSymbol) {
+        this.tokenSymbol = tokenSymbol;
     }
 
     public Boolean getToken() {

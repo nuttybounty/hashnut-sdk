@@ -20,7 +20,7 @@ public class CancelOrderRequest extends PostRequest<SingleResponse> {
 
     @Override
     public String getUri() {
-        return "/pay/orders/cancel/api";
+        return "/api/orders/cancel";
     }
 
     @Override

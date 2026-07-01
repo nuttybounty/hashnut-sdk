@@ -6,7 +6,7 @@ import java.util.Date;
 public class FiatExchangeRate implements Serializable {
     private String baseCoin;
     private String quoteCoin;
-    private String chainCode;
+    private String blockChain;
     private Float rate;
     private Date createTime;
     private Date updateTime;
@@ -30,12 +30,12 @@ public class FiatExchangeRate implements Serializable {
         this.quoteCoin = quoteCoin;
     }
 
-    public String getChainCode() {
-        return this.chainCode;
+    public String getBlockChain() {
+        return this.blockChain;
     }
 
-    public void setChainCode(String chainCode) {
-        this.chainCode = chainCode;
+    public void setBlockChain(String blockChain) {
+        this.blockChain = blockChain;
     }
 
     public Float getRate() {

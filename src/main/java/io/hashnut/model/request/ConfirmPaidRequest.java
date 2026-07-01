@@ -7,14 +7,12 @@ public class ConfirmPaidRequest extends PostRequest<SingleResponse> {
     private final String merchantOrderId;
     private final String accessSign;
     private final String payTxId;
-    private final String chainCode;
 
     private ConfirmPaidRequest(Builder builder) {
         this.payOrderId = builder.payOrderId;
         this.merchantOrderId = builder.merchantOrderId;
         this.accessSign = builder.accessSign;
         this.payTxId = builder.payTxId;
-        this.chainCode = builder.chainCode;
     }
 
     public String getPayOrderId() {
@@ -33,10 +31,6 @@ public class ConfirmPaidRequest extends PostRequest<SingleResponse> {
         return payTxId;
     }
 
-    public String getChainCode() {
-        return chainCode;
-    }
-
     @Override
     public String getUri() {
         return "/pay/orders/confirm";
@@ -52,7 +46,6 @@ public class ConfirmPaidRequest extends PostRequest<SingleResponse> {
         private String merchantOrderId;
         private String accessSign;
         private String payTxId;
-        private String chainCode;
 
         public Builder withPayOrderId(String payOrderId) {
             this.payOrderId = payOrderId;
@@ -71,11 +64,6 @@ public class ConfirmPaidRequest extends PostRequest<SingleResponse> {
 
         public Builder withPayTxId(String payTxId) {
             this.payTxId = payTxId;
-            return this;
-        }
-
-        public Builder withChainCode(String chainCode) {
-            this.chainCode = chainCode;
             return this;
         }
 

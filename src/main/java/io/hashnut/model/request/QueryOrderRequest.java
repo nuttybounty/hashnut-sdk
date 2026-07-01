@@ -27,7 +27,7 @@ public class QueryOrderRequest extends PostRequest<QueryOrderResponse> {
 
     @Override
     public String getUri() {
-        return "/pay/orders/query";
+        return "/api/orders/query";
     }
 
     @Override

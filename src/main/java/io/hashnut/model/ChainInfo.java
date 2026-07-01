@@ -6,7 +6,8 @@ import java.util.Date;
 
 public class ChainInfo {
     private Integer id;
-    private String chain;
+    @JsonProperty("chain")
+    private String blockChain;
     private String chainDesc;
     private Boolean enable;
     private String receiptAddress;
@@ -33,12 +34,13 @@ public class ChainInfo {
         this.id = id;
     }
 
-    public String getChain() {
-        return chain;
+    public String getBlockChain() {
+        return blockChain;
     }
 
-    public void setChain(String chain) {
-        this.chain = chain;
+    @JsonProperty("chain")
+    public void setBlockChain(String blockChain) {
+        this.blockChain = blockChain;
     }
 
     public String getChainDesc() {

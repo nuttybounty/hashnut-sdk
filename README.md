@@ -32,8 +32,8 @@ public class Main {
                 .withAccessKeyId("your-access-key-id")
                 .withMerchantOrderId("order-001")
                 .withMerchantChannel("default")
-                .withChainCode("trc20")
-                .withCoinCode("usdt")
+                .withBlockChain("TRON")
+                .withTokenSymbol("usdt")
                 .withAmount("10.00")
                 .withSplitterAddress("your-v4-split-wallet-address")
                 .withExpireDuration(600L)
@@ -64,8 +64,8 @@ HashNutClient customClient = new HashNutClientImpl(secretKey, "https://custom.ex
 CreateOrderResponse response = service.createOrder(new CreateOrderRequest.Builder()
         .withAccessKeyId("your-access-key-id")
         .withMerchantOrderId("order-001")
-        .withChainCode("trc20")
-        .withCoinCode("usdt")
+        .withBlockChain("TRON")
+        .withTokenSymbol("usdt")
         .withAmount("10.00")
         .withSplitterAddress("your-v4-split-wallet-address")
         .build());
@@ -91,7 +91,6 @@ service.confirmPaid(new ConfirmPaidRequest.Builder()
         .withMerchantOrderId("order-001")
         .withAccessSign("access-sign-from-create-order")
         .withPayTxId("blockchain-transaction-hash")
-        .withChainCode("trc20")
         .build());
 ```
 
